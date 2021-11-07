@@ -28,7 +28,7 @@ public class App extends Application {
             scene.getStylesheets().clear();
             scene.getStylesheets().add(App.class.getClassLoader().getResource("FXML/CSS/style.css").toExternalForm());
 
-            if(isNightTheme.get()) {
+            if(isNightThemeProperty.get()) {
                 scene.getStylesheets().add(App.class.getClassLoader().getResource("FXML/CSS/night_style.css").toExternalForm());
             } else {
                 scene.getStylesheets().add(App.class.getClassLoader().getResource("FXML/CSS/light_style.css").toExternalForm());
@@ -37,7 +37,7 @@ public class App extends Application {
     }
 
     public static void switchTheme() {
-        isNightTheme.set(!isNightTheme.get());
+        isNightThemeProperty.set(!isNightThemeProperty.get());
     }
 
     @Override
@@ -45,7 +45,7 @@ public class App extends Application {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("FXML/layout.fxml"));
         Scene scene = new Scene(root, 1920, 1080);
 
-        isNightTheme.addListener(e -> loadTheme());
+        isNightThemeProperty.addListener(e -> loadTheme());
 
         primaryStage.setScene(scene);
         primaryStage.show();
