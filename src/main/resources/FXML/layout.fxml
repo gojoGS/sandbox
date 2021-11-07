@@ -12,4 +12,7 @@
     <center>
         <QuestionLabel fx:id="questionLabel"  BorderPane.alignment="BOTTOM_CENTER" />
     </center>
+    <right>
+        <MoneyBox fx:id="moneyBox" BorderPane.alignment="CENTER"/>
+    </right>
 </BorderPane>

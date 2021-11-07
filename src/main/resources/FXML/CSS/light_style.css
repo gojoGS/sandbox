@@ -1,0 +1,41 @@
+.answerButton {
+    -fx-background-color:grey;
+}
+
+.answerButton:hover {
+    -fx-background-color:lightgrey;
+}
+
+.answerButton_selected {
+    -fx-background-color:orange;
+}
+
+.answerButton_wrong {
+    -fx-background-color:red;
+}
+
+.answerButton_right {
+    -fx-background-color:green;
+}
+
+.answerButton_selected:hover {
+    -fx-background-color:salmon;
+}
+
+.answerButton_wrong:hover {
+    -fx-background-color:indianred;
+}
+
+.answerButton_right:hover {
+    -fx-background-color:lightgreen;
+}
+
+.moneyBoxLabel {
+    -fx-background-color: blue;
+    -fx-text-fill: black;
+}
+
+.moneyBoxLabel_selected {
+    -fx-background-color: blue;
+    -fx-text-fill: orange;
+}

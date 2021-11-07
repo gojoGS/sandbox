@@ -2,9 +2,11 @@ package App.GUI.controller;
 
 import App.App;
 import App.GUI.components.AnswerGrid;
+import App.GUI.components.MoneyBox;
 import App.GUI.components.QuestionLabel;
 import App.model.AnswerId;
 import javafx.animation.PauseTransition;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -15,8 +17,11 @@ import javafx.scene.layout.BorderPane;
 import javafx.util.Duration;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class LayoutController {
+    SimpleObjectProperty<Map<AnswerId, String>> questionProperty;
+
     @FXML
     AnswerGrid answerGrid;
 
@@ -26,17 +31,18 @@ public class LayoutController {
     @FXML
     BorderPane borderPane;
 
+    @FXML
+    MoneyBox moneyBox;
+
 
     int dummy = 0;
 
     @FXML
     public void initialize() {
-
         BorderPane.setMargin(questionLabel, new Insets(15));
 
 //        setQuestion("Mi az élet értelme? Mondta józsef attila. de mégis ki gondolná, hogy nemcsak a költő szereti a nagykeblő, öblös seggű nőket?");
         setQuestion("Mi az élet értelme?");
-
 
         var ansers = new HashMap<AnswerId, String>();
         ansers.put(AnswerId.A, "csöcsök");
@@ -44,28 +50,25 @@ public class LayoutController {
         ansers.put(AnswerId.C, "A és B");
         ansers.put(AnswerId.D, "C");
 
+        questionProperty = new SimpleObjectProperty<>();
+
+        questionProperty.addListener((observable, oldValue, newValue) -> {
+            setQuestion("Ki volt a USA első elnöke?");
+
+            answerGrid.setAnswer(newValue);
+        });
+
         answerGrid.setButtonOnActionEventHandler(this::setOnButtonClick);
 
         answerGrid.setAnswer(ansers);
 
         Button asd = new Button("theme");
-        asd.setOnAction(this::setOnTheme);
+        asd.setOnAction(e -> App.switchTheme());
 
         borderPane.setTop(asd);
     }
 
-    private void setOnTheme(ActionEvent event) {
-        App.isNightTheme = !App.isNightTheme;
-
-        Scene scene = ((Node)event.getSource()).getScene();
-        scene.getStylesheets().clear();
-
-        if (App.isNightTheme) {
-            scene.getStylesheets().add(getClass().getClassLoader().getResource("FXML/CSS/night_style.css").toExternalForm());
-        } else {
-            scene.getStylesheets().add(getClass().getClassLoader().getResource("FXML/CSS/style.css").toExternalForm());
-        }
-    }
+    private void onQuestionChange() {}
 
     private void setOnButtonClick(ActionEvent event) {
         Button source = (Button)event.getSource();
@@ -83,7 +86,6 @@ public class LayoutController {
         });
 
         pause.play();
-
     }
 
     private void setQuestion(String question) {
